@@ -43,6 +43,11 @@ TYPE LAGRANGIAN_PARTICLE_CLASS_TYPE
    REAL(EB) :: HEAT_TRANSFER_COEFFICIENT_GAS    !< Heat transfer coefficient from gas to liquid droplet (W/m2/K)
    REAL(EB) :: HEAT_TRANSFER_COEFFICIENT_SOLID  !< Heat transfer coefficient from solid surface to liquid droplet (W/m2/K)
    REAL(EB) :: DRAG_COEFFICIENT(3)        !< Drag coefficient in 3 coordinate directions
+   REAL(EB) :: A_COEFF_DRAG_EXP_USER      !< Martin A coefficient used in exponential fct defined by user
+   REAL(EB) :: B_COEFF_DRAG_EXP_USER      !< Martin B coefficient used in exponential fct defined by user
+   REAL(EB) :: A_COEFF_DRAG_HOMEMADE      !< Martin A coefficient used in homemade exponential fct defined by user
+   REAL(EB) :: B_COEFF_DRAG_HOMEMADE      !< Martin B coefficient used in homemade exponential fct defined by user
+   REAL(EB) :: N_COEFF_DRAG_HOMEMADE      !< Martin N coefficient used in homemade exponential fct defined by user
    REAL(EB) :: SURFACE_DIAMETER           !< Effective liquid droplet diameter (m) on a solid surface
    REAL(EB) :: SURFACE_TENSION            !< Surface tension (N/m) of liquid droplets
    REAL(EB) :: BREAKUP_RATIO              !< Ratio of child Sauter mean to parent size in Bag breakup regime
@@ -89,6 +94,7 @@ TYPE LAGRANGIAN_PARTICLE_CLASS_TYPE
    INTEGER :: RADIATIVE_PROPERTY_INDEX=0  !< Index for this class of particles in radiative property table
    INTEGER :: SURF_INDEX=0                !< Surface properties for solid particle
    INTEGER :: DRAG_LAW=1                  !< Code indicating type of drag law
+   INTEGER :: DRAG_REDUCTION_LAW=1        !< Martin Code indicating type of drag reduction law
    INTEGER :: DEVC_INDEX=0                !< Index of device that governs this class of particles
    INTEGER :: CTRL_INDEX=0                !< Index of controller that governs this class of particles
    INTEGER :: ORIENTATION_INDEX=0         !< Starting position of the particle class orientation vector within the master array
