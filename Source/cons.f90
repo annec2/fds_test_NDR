@@ -127,6 +127,10 @@ INTEGER, PARAMETER :: CYLINDER_DRAG=2                  !< Flag for LPC\%DRAG_LAW
 INTEGER, PARAMETER :: USER_DRAG=3                      !< Flag for LPC\%DRAG_LAW: User-specified constant drag coefficient
 INTEGER, PARAMETER :: SCREEN_DRAG=4                    !< Flag for LPC\%DRAG_LAW: Special drag model for screens
 INTEGER, PARAMETER :: POROUS_DRAG=5                    !< Flag for LPC\%DRAG_LAW: Special drag model for porous media
+INTEGER, PARAMETER :: RAMIREZ_DRAG_REDUCTION=6         !< Flag for LPC\%DRAG_REDUCTION_LAW: default model - Ramirez drag reduction Martin
+INTEGER, PARAMETER :: ZHU_DRAG_REDUCTION=7             !< Flag for LPC\%DRAG_REDUCTION_LAW: Zhu model - exponential function Martin
+INTEGER, PARAMETER :: USER_DRAG_REDUCTION=8            !< Flag for LPC\%DRAG_REDUCTION_LAW: Exponential function - A and B defined by user Martin
+INTEGER, PARAMETER :: HOMEMADE_DRAG_REDUCTION=9        !< Flag for LPC\%DRAG_REDUCTION_LAW: homemade model=f(drop vol fraction) - A, B and N defined by user Martin
 
 INTEGER, PARAMETER :: OLD=1                            !< Argument for DUCT()\%VEL()
 INTEGER, PARAMETER :: NEW=2                            !< Argument for DUCT()\%VEL()
