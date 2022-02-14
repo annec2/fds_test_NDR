@@ -106,6 +106,7 @@ TYPE LAGRANGIAN_PARTICLE_CLASS_TYPE
    INTEGER :: RADIATIVE_PROPERTY_INDEX=0  !< Index for this class of particles in radiative property table
    INTEGER :: SURF_INDEX=0                !< Surface properties for solid particle
    INTEGER :: DRAG_LAW=1                  !< Code indicating type of drag law
+   INTEGER :: PART_HEAT_TRANSFER_MODEL=1  !< Martin Code indicating type of heat transfer model within the particle
    INTEGER :: DEVC_INDEX=0                !< Index of device that governs this class of particles
    INTEGER :: CTRL_INDEX=0                !< Index of controller that governs this class of particles
    INTEGER :: ORIENTATION_INDEX=0         !< Starting position of the particle class orientation vector within the master array
