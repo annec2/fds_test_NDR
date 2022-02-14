@@ -5202,6 +5202,18 @@ READ_PART_LOOP: DO N=1,N_LAGRANGIAN_CLASSES
          CALL SHUTDOWN(MESSAGE) ; RETURN
    END SELECT
 
+!Martin
+   SELECT CASE(PART_HEAT_TRANSFER_MODEL)
+      CASE('ISOTHERMAL_MODEL','null')
+         LPC%PART_HEAT_TRANSFER_MODEL = ISOTHERMAL_MODEL
+      CASE('TWO_ZONE_MODEL')
+         LPC%PART_HEAT_TRANSFER_MODEL = TWO_ZONE_MODEL
+      CASE DEFAULT
+         WRITE(MESSAGE,'(A)') 'ERROR: unrecognized PART_HEAT_TRANSFER_MODEL on PART line'
+         CALL SHUTDOWN(MESSAGE) ; RETURN
+   END SELECT
+
+
    ! Determine the number of slots to create in the particle evaporation and radiation arrays
 
    IF (LPC%LIQUID_DROPLET .OR. LPC%SOLID_PARTICLE) THEN
@@ -5305,6 +5317,7 @@ VERTICAL_VELOCITY        = 0.5_EB
 HORIZONTAL_VELOCITY      = 0.2_EB
 DRAG_LAW                 = 'null'
 DRAG_COEFFICIENT         = -1._EB
+PART_HEAT_TRANSFER_MODEL = 'null' !<Martin
 PERMEABILITY             = -1._EB
 DISTRIBUTION             = 'ROSIN-RAMMLER-LOGNORMAL'
 CNF_RAMP_ID              = 'null'
