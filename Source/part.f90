@@ -3244,6 +3244,8 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
 					WRITE(MESSAGE,'(A,I0,A)') 'Good job! The Two-Zone heat transfer model has correctly been selected. Write the code now.'
 					CALL SHUTDOWN(MESSAGE) ; RETURN
 
+			END SELECT PART_HEAT_TRANSFER_MODEL_SELECT
+
                   CASE(2) ! Const Temp Wall
 
                      DTWOP = 0.5_EB*DTOP*A_DROP*H_WALL
