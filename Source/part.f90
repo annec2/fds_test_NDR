@@ -3227,8 +3227,6 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
 			PART_HEAT_TRANSFER_MODEL_SELECT: SELECT CASE(LPC%PART_HEAT_TRANSFER_MODEL)
 			
 			CASE(ISOTHERMAL_MODEL)
-					WRITE(MESSAGE,'(A,I0,A)') 'Good job! The default isothermal heat transfer model has correctly been selected. Write the code now.'
-					CALL SHUTDOWN(MESSAGE) ; RETURN
                      A_COL(1) = 1._EB+DTGOG
                      B_COL(1) = -(DTGOG+DADYDTHVHL)
                      A_COL(2) = -DTGOP
