@@ -3223,6 +3223,13 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
 
                SELECT CASE (ARRAY_CASE)
                   CASE(1) ! Gas Only
+			!Martin
+			PART_HEAT_TRANSFER_MODEL_SELECT: SELECT CASE(LPC%PART_HEAT_TRANSFER_MODEL)
+			
+			CASE(ISOTHERMAL_MODEL)
+					WRITE(MESSAGE,'(A,I0,A)') 'Good job! The default isothermal heat transfer model has correctly been selected ', N,&
+								  'Now you still have to write the code'
+					CALL SHUTDOWN(MESSAGE) ; RETURN
                      A_COL(1) = 1._EB+DTGOG
                      B_COL(1) = -(DTGOG+DADYDTHVHL)
                      A_COL(2) = -DTGOP
@@ -3232,6 +3239,13 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
                      TMP_DROP_NEW = -(A_COL(2)*D_VEC(1)-A_COL(1)*D_VEC(2))/(A_COL(1)*B_COL(2)-B_COL(1)*A_COL(2))
                      TMP_G_NEW = (D_VEC(1)-B_COL(1)*TMP_DROP_NEW)/A_COL(1)
                      TMP_WALL_NEW = TMP_WALL
+
+			!Martin
+			CASE(TWO_ZONE_MODEL)
+					WRITE(MESSAGE,'(A,I0,A)') 'Good job! The Two-Zone heat transfer model has correctly been selected ', N,&
+								  'Now you still have to write the code'
+					CALL SHUTDOWN(MESSAGE) ; RETURN
+
                   CASE(2) ! Const Temp Wall
 
                      DTWOP = 0.5_EB*DTOP*A_DROP*H_WALL
