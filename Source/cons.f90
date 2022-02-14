@@ -599,6 +599,8 @@ LOGICAL :: EB_PART_FILE=.FALSE.,PL3D_PARTICLE_FLUX=.FALSE.,SLCF_PARTICLE_FLUX=.F
 LOGICAL :: OMESH_PARTICLES=.FALSE.,EXCHANGE_INSERTED_PARTICLES=.FALSE.
 
 INTEGER :: MOMENTUM_INTERPOLATION_METHOD=0
+INTEGER, PARAMETER :: ISOTHERMAL_MODEL=1	!< Martin Flag for LPC\%PART_HEAT_TRANSFER_MODEL: default isothermal model for the heat-up and evaporation of droplets
+INTEGER, PARAMETER :: TWO_ZONE_MODEL=2		!< Martin for LPC\%PART_HEAT_TRANSFER_MODEL: Homemade Two-Zone model for the heat-up and evaporation of droplets
 
 ! Soot oxidation
 
