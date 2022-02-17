@@ -2809,6 +2809,41 @@ REAL(EB) :: A_COL(3) !< Gas temperature terms in LHS of solution
 REAL(EB) :: B_COL(3) !< Particle temperatre terms in LHS of solution
 REAL(EB) :: C_COL(3) !< Wall temperature terms in LHS of solution
 REAL(EB) :: D_VEC(3) !< RHS of solution
+!Martin parameters used in the implicit solution of my TWO_ZONE model
+REAL(EB) :: BI_CRIT !< Critical Biot number that is used to define the depth of the outer layer
+REAL(EB) :: DELTA_OUT !< Depth of the outer layer
+REAL(EB) :: A_IN !< Heat exchange area between the outer and the inner layer
+REAL(EB) :: M_DROP_IN !< Mass of the inner layer
+REAL(EB) :: M_DROP_OUT !< Mass of the outer layer
+REAL(EB) :: MU_G !< Collection of terms used in the implicit solution of the TZ
+REAL(EB) :: C_DROP_IN !< In case of we want to do a distinction between the inner and the outer cp of liquid water
+REAL(EB) :: MU_IN !< Collection of terms used in the implicit solution
+REAL(EB) :: MU_OUT !< Collection of terms used in the implicit solution of the TZ
+REAL(EB) :: U_IM !< Collection of terms used in the implicit solution of the TZ
+REAL(EB) :: V_IM !< Collection of terms used in the implicit solution of the TZ
+REAL(EB) :: W_IM !< Collection of terms used in the implicit solution of the TZ
+REAL(EB) :: X_IM !< Collection of terms used in the implicit solution of the TZ
+REAL(EB) :: Y_IM !< Collection of terms used in the implicit solution of the TZ
+REAL(EB) :: Z_IM !< Collection of terms used in the implicit solution of the TZ
+REAL(EB) :: A_IM !< Collection of terms used in the implicit solution of the TZ
+REAL(EB) :: B_IM !< Collection of terms used in the implicit solution of the TZ
+REAL(EB) :: C_IM !< Collection of terms used in the implicit solution of the TZ
+REAL(EB) :: D_IM !< Collection of terms used in the implicit solution of the TZ
+REAL(EB) :: E_IM !< Collection of terms used in the implicit solution of the TZ
+REAL(EB) :: F_IM !< Collection of terms used in the implicit solution of the TZ
+REAL(EB) :: G_IM !< Collection of terms used in the implicit solution of the TZ
+REAL(EB) :: H_IM !< Collection of terms used in the implicit solution of the TZ
+REAL(EB) :: I_IM !< Collection of terms used in the implicit solution of the TZ
+REAL(EB) :: J_IM !< Collection of terms used in the implicit solution of the TZ
+REAL(EB) :: K_IM !< Collection of terms used in the implicit solution of the TZ
+REAL(EB) :: L_IM !< Collection of terms used in the implicit solution of the TZ
+REAL(EB) :: R_IM !< Collection of terms used in the implicit solution of the TZ
+REAL(EB) :: S_IM !< Collection of terms used in the implicit solution of the TZ
+REAL(EB) :: T_IM !< Collection of terms used in the implicit solution of the TZ
+REAL(EB) :: TMP_DROP_NEW_PLUS !< End of sub time step positive outer layer temperature of the quadratic problem (K)
+REAL(EB) :: TMP_DROP_NEW_MINUS !< End of sub time step negative outer layer temperature of the quadratic problem (K)
+REAL(EB) :: TMP_DROP_IN_NEW !< End of sub time step inner layer temperature (K)
+REAL(EB) :: TMP_DROP_IN !< Current inner layer temperature (K)
 INTEGER :: IP,II,JJ,KK,IW,ICF,N_LPC,ITMP,ITMP2,ITCOUNT,Y_INDEX,Z_INDEX,Z_INDEX_A(1),I_BOIL,I_MELT,NMAT
 INTEGER :: ARRAY_CASE
 !< 1 = Particle in gas only, 2 = Particle on constant temperature surface, 3 = Particle on thermally thick surface
@@ -2996,6 +3031,8 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
             FTPR     = FOTHPI * LP_ONE_D%MATL_COMP(1)%RHO(1)
             M_DROP   = FTPR*R_DROP**3
             TMP_DROP = LP_ONE_D%TMP(1)
+	!Martin
+	    TMP_DROP_IN = TMP_DROP
             T_BOIL_EFF = SS%TMP_V
             CALL GET_EQUIL_DATA(MW_DROP,TMP_DROP,PBAR(KK,PRESSURE_ZONE(II,JJ,KK)),H_V,H_V_A,T_BOIL_EFF,X_DROP,SS%H_V)
             I_BOIL   = INT(T_BOIL_EFF)
@@ -3227,20 +3264,65 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
 			PART_HEAT_TRANSFER_MODEL_SELECT: SELECT CASE(LPC%PART_HEAT_TRANSFER_MODEL)
 			
 			CASE(ISOTHERMAL_MODEL)
-                     A_COL(1) = 1._EB+DTGOG
-                     B_COL(1) = -(DTGOG+DADYDTHVHL)
-                     A_COL(2) = -DTGOP
-                     B_COL(2) = 1._EB+DTGOP+DADYDTHV
-                     D_VEC(1) = (1._EB-DTGOG)*TMP_G+(DTGOG-DADYDTHVHL)*TMP_DROP+DAHVHLDY
-                     D_VEC(2) = DTGOP*TMP_G+(1-DTGOP+DADYDTHV)*TMP_DROP-DADYHV+DTOP*Q_DOT_RAD
-                     TMP_DROP_NEW = -(A_COL(2)*D_VEC(1)-A_COL(1)*D_VEC(2))/(A_COL(1)*B_COL(2)-B_COL(1)*A_COL(2))
-                     TMP_G_NEW = (D_VEC(1)-B_COL(1)*TMP_DROP_NEW)/A_COL(1)
-                     TMP_WALL_NEW = TMP_WALL
+		             A_COL(1) = 1._EB+DTGOG
+		             B_COL(1) = -(DTGOG+DADYDTHVHL)
+		             A_COL(2) = -DTGOP
+		             B_COL(2) = 1._EB+DTGOP+DADYDTHV
+		             D_VEC(1) = (1._EB-DTGOG)*TMP_G+(DTGOG-DADYDTHVHL)*TMP_DROP+DAHVHLDY
+		             D_VEC(2) = DTGOP*TMP_G+(1-DTGOP+DADYDTHV)*TMP_DROP-DADYHV+DTOP*Q_DOT_RAD
+		             TMP_DROP_NEW = -(A_COL(2)*D_VEC(1)-A_COL(1)*D_VEC(2))/(A_COL(1)*B_COL(2)-B_COL(1)*A_COL(2))
+		             TMP_G_NEW = (D_VEC(1)-B_COL(1)*TMP_DROP_NEW)/A_COL(1)
+		             TMP_WALL_NEW = TMP_WALL
 
 			!Martin
 			CASE(TWO_ZONE_MODEL)
-					WRITE(MESSAGE,'(A,I0,A)') 'Good job! The Two-Zone heat transfer model has correctly been selected. Write the code now.'
-					CALL SHUTDOWN(MESSAGE) ; RETURN
+				BI_CRIT = 0.10_EB
+				DELTA_OUT = BI_CRIT*SS%K_LIQUID/H_HEAT ! SS% -> Species Type
+				A_IN = PI*(2._EB*R_DROP-2._EB*DELTA_OUT)**2
+
+				M_DROP_IN = FTPR*R_DROP**3*(1-DELTA_OUT/R_DROP)**3
+				M_DROP_OUT = M_DROP-M_DROP_IN
+
+				MU_G = (M_GAS*CP)/(DT_SUBSTEP*WGT)
+				C_DROP_IN=C_DROP		!Martin : To be changed
+				MU_IN = (M_DROP_IN*C_DROP_IN)/DT_SUBSTEP
+				MU_OUT = (M_DROP_OUT*C_DROP)/DT_SUBSTEP
+				
+				U_IM = A_DROP*H_MASS*RHO_FILM/(1._EB+0.5_EB*A_DROP*WGT*H_MASS*RHO_FILM*RVC*DT_SUBSTEP/RHO_G)
+				V_IM = 0.5_EB*A_IN/A_DROP*C_DROP
+				W_IM = 0.5_EB*A_DROP*H_HEAT
+				X_IM = Y_DROP-0.5_EB*DYDT*TMP_DROP-Y_GAS
+				Y_IM = TMP_DROP-TMP_DROP_IN
+				Z_IM = TMP_G-TMP_DROP
+				
+				A_IM = 1._EB+W_IM/MU_G
+				B_IM = -W_IM/MU_G+U_IM/MU_G*0.5_EB*DYDT*(H1-H2)
+				C_IM = TMP_G-W_IM*Z_IM/MU_G+U_IM/MU_G*X_IM*(H1-H2)
+				D_IM = 1._EB+W_IM/MU_OUT+0.5_EB*U_IM/MU_OUT*DYDT*H_V
+				E_IM = -W_IM/MU_OUT
+				F_IM = MU_IN/MU_OUT
+				G_IM = TMP_DROP+1/MU_OUT*(W_IM*Z_IM-U_IM*X_IM*H_V+MU_IN*TMP_DROP_IN+Q_DOT_RAD)
+				H_IM = -0.5_EB*U_IM*V_IM/MU_IN*DYDT
+				I_IM = -H_IM
+				J_IM = -U_IM*V_IM/MU_IN*(X_IM+0.5_EB*DYDT*Y_IM)
+				K_IM = U_IM*V_IM/MU_IN*X_IM+1._EB
+				L_IM = TMP_DROP_IN+U_IM*V_IM/MU_IN*X_IM*Y_IM
+				
+				R_IM = H_IM - (D_IM*I_IM)/F_IM + (B_IM*E_IM*I_IM)/(A_IM*F_IM)
+				S_IM = (G_IM*I_IM)/F_IM - (C_IM*E_IM*I_IM)/(A_IM*F_IM) + J_IM - (D_IM*K_IM)/F_IM + (B_IM*E_IM*K_IM)/(A_IM*F_IM)
+				T_IM = (G_IM*K_IM)/F_IM - (C_IM*E_IM*K_IM)/(A_IM*F_IM) - L_IM
+				
+				TMP_DROP_NEW_PLUS = (-S_IM + SQRT(S_IM**2-4*R_IM*T_IM)) / (2*R_IM)
+				TMP_DROP_NEW_MINUS = (-S_IM - SQRT(S_IM**2-4*R_IM*T_IM)) / (2*R_IM))
+				
+				IF (ABS(TMP_DROP_NEW_PLUS-TMP_DROP) <= ABS(TMP_DROP_NEW_MINUS-TMP_DROP))
+		             		TMP_DROP_NEW = TMP_DROP_NEW_PLUS
+				ELSE
+					TMP_DROP_NEW = TMP_DROP_NEW_MINUS
+				ENDIF
+				TMP_G_NEW = C_IM/A_IM - B_IM/A_IM*TMP_DROP_NEW
+				TMP_DROP_IN_NEW = G_IM/F_IM - (C_IM*E_IM)/(F_IM*A_IM) + ( -D_IM/F_IM + (B_IM*E_IM)/(F_IM*A_IM) )*TMP_DROP_NEW
+				TMP_WALL_NEW = TMP_WALL
 
 			END SELECT PART_HEAT_TRANSFER_MODEL_SELECT
 
