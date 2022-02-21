@@ -3033,7 +3033,8 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
             TMP_DROP = LP_ONE_D%TMP(1)
 	!Martin
 	    TMP_DROP_IN = TMP_DROP
-		PRINT *, 'Tmp_drop = ', TMP_DROP,', Tmp_drop_in = ', TMP_DROP_IN 
+		PRINT *, 'Time = ', T,' s, DT = ', DT, ' s, DT_sum = ', DT_SUM, ' s'
+		PRINT *, 'Tmp_drop = ', TMP_DROP,' K, Tmp_drop_in = ', TMP_DROP_IN, ' K'
             T_BOIL_EFF = SS%TMP_V
             CALL GET_EQUIL_DATA(MW_DROP,TMP_DROP,PBAR(KK,PRESSURE_ZONE(II,JJ,KK)),H_V,H_V_A,T_BOIL_EFF,X_DROP,SS%H_V)
             I_BOIL   = INT(T_BOIL_EFF)
@@ -3274,6 +3275,7 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
 		             TMP_DROP_NEW = -(A_COL(2)*D_VEC(1)-A_COL(1)*D_VEC(2))/(A_COL(1)*B_COL(2)-B_COL(1)*A_COL(2))
 		             TMP_G_NEW = (D_VEC(1)-B_COL(1)*TMP_DROP_NEW)/A_COL(1)
 		             TMP_WALL_NEW = TMP_WALL
+		PRINT *, 'Tmp_drop = ', TMP_DROP,', Tmp_g= ', TMP_G', m_drop= ', M_DROP 
 
 			!Martin
 			CASE(TWO_ZONE_MODEL)
