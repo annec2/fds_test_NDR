@@ -3032,7 +3032,9 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
             M_DROP   = FTPR*R_DROP**3
             TMP_DROP = LP_ONE_D%TMP(1)
 	!Martin
+		IF (T = 0._EB) THEN
 	    TMP_DROP_IN = TMP_DROP
+		ENDIF
 		PRINT *, 'Time = ', T,' s, DT = ', DT, ' s, DT_sum = ', DT_SUM, ' s'
 		PRINT *, 'Tmp_drop = ', TMP_DROP,' K, Tmp_drop_in = ', TMP_DROP_IN, ' K'
             T_BOIL_EFF = SS%TMP_V
