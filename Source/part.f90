@@ -3032,7 +3032,7 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
             M_DROP   = FTPR*R_DROP**3
             TMP_DROP = LP_ONE_D%TMP(1)
 	!Martin
-		IF (T =< DT) THEN
+		IF (T <= DT) THEN
 	    TMP_DROP_IN = TMP_DROP
 		PRINT *, 'Time = ', T,' s, DT = ', DT, ' s'
 		ENDIF
