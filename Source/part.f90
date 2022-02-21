@@ -3032,11 +3032,12 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
             M_DROP   = FTPR*R_DROP**3
             TMP_DROP = LP_ONE_D%TMP(1)
 	!Martin
-		IF (T == 0._EB) THEN
+		IF (T =< DT) THEN
 	    TMP_DROP_IN = TMP_DROP
+		PRINT *, 'Time = ', T,' s, DT = ', DT, ' s
 		ENDIF
-		PRINT *, 'Time = ', T,' s, DT = ', DT, ' s, DT_sum = ', DT_SUM, ' s'
-		PRINT *, 'Tmp_drop = ', TMP_DROP,' K, Tmp_drop_in = ', TMP_DROP_IN, ' K'
+		!PRINT *, 'Time = ', T,' s, DT = ', DT, ' s, DT_sum = ', DT_SUM, ' s'
+		!PRINT *, 'Tmp_drop = ', TMP_DROP,' K, Tmp_drop_in = ', TMP_DROP_IN, ' K'
             T_BOIL_EFF = SS%TMP_V
             CALL GET_EQUIL_DATA(MW_DROP,TMP_DROP,PBAR(KK,PRESSURE_ZONE(II,JJ,KK)),H_V,H_V_A,T_BOIL_EFF,X_DROP,SS%H_V)
             I_BOIL   = INT(T_BOIL_EFF)
