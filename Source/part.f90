@@ -3034,7 +3034,7 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
 	!Martin
 		IF (T =< DT) THEN
 	    TMP_DROP_IN = TMP_DROP
-		PRINT *, 'Time = ', T,' s, DT = ', DT, ' s
+		PRINT *, 'Time = ', T,' s, DT = ', DT, ' s'
 		ENDIF
 		!PRINT *, 'Time = ', T,' s, DT = ', DT, ' s, DT_sum = ', DT_SUM, ' s'
 		!PRINT *, 'Tmp_drop = ', TMP_DROP,' K, Tmp_drop_in = ', TMP_DROP_IN, ' K'
