@@ -3284,9 +3284,9 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
 			!Martin
 			CASE(TWO_ZONE_MODEL)
 				BI_CRIT = 0.10_EB
-				!DELTA_OUT = BI_CRIT*SS%K_LIQUID/H_HEAT ! SS% -> Species Type
-				K_L=0.006597_EB
-				DELTA_OUT = BI_CRIT*K_L/H_HEAT
+				DELTA_OUT = BI_CRIT*SS%K_LIQUID/H_HEAT ! SS% -> Species Type
+				!K_L=0.006597_EB
+				!DELTA_OUT = BI_CRIT*K_L/H_HEAT
 				A_IN = PI*(2._EB*R_DROP-2._EB*DELTA_OUT)**2
 				!PRINT *, 'Bi_crit = ', BI_CRIT,'-, h = ', H_HEAT, ' W/(m K)'
 				!PRINT *, 'K_l = ', K_L,'W/(m K), SS%K_l = ', SS%K_LIQUID, ' W/(m K)'
@@ -3300,7 +3300,8 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
 				C_DROP_IN=C_DROP		!Martin : To be changed
 				MU_IN = (M_DROP_IN*C_DROP_IN)/DT_SUBSTEP
 				MU_OUT = (M_DROP_OUT*C_DROP)/DT_SUBSTEP
-				
+				PRINT *, 'mu_out = ', MU_OUT,'?, mu_in= ', MU_IN, ' ?, mu_g= ', MU_G, ' ?'
+
 				U_IM = A_DROP*H_MASS*RHO_FILM/(1._EB+0.5_EB*A_DROP*WGT*H_MASS*RHO_FILM*RVC*DT_SUBSTEP/RHO_G)
 				V_IM = 0.5_EB*A_IN/A_DROP*C_DROP
 				W_IM = 0.5_EB*A_DROP*H_HEAT
