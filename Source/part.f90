@@ -3283,9 +3283,12 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
 			!Martin
 			CASE(TWO_ZONE_MODEL)
 				BI_CRIT = 0.10_EB
-				DELTA_OUT = BI_CRIT*SS%K_LIQUID/H_HEAT ! SS% -> Species Type
+				!DELTA_OUT = BI_CRIT*SS%K_LIQUID/H_HEAT ! SS% -> Species Type
+				K_L=0.006597_EB
+				DELTA_OUT = BI_CRIT*K_L/H_HEAT
 				A_IN = PI*(2._EB*R_DROP-2._EB*DELTA_OUT)**2
-				PRINT *, 'Bi_crit = ', BI_CRIT,'-, K_l = ', SS%K_LIQUID, ' ?'
+				PRINT *, 'Bi_crit = ', BI_CRIT,'-, h = ', H_HEAT, ' W/(m K)'
+				PRINT *, 'K_l = ', K_L,'W/(m K), SS%K_l = ', SS%K_LIQUID, ' W/(m K)'
 				PRINT *, 'R_drop = ', R_DROP,'m, Delta_out = ', DELTA_OUT, ' m'
 
 				M_DROP_IN = FTPR*R_DROP**3*(1-DELTA_OUT/R_DROP)**3
