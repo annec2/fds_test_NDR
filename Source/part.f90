@@ -3339,7 +3339,7 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
 
 				PRINT *, 'Tmp_drop_new = ', TMP_DROP_NEW,' K'
 				PRINT *, 'Tmp_drop_in_new = ', TMP_DROP_IN_NEW, ' K'
-				PRINT *, 'Tmp_gas_new = ', TMP_GAS_NEW,' K'
+				PRINT *, 'Tmp_gas_new = ', TMP_G_NEW,' K'
 
 			END SELECT PART_HEAT_TRANSFER_MODEL_SELECT
 
