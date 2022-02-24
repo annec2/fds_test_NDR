@@ -3337,6 +3337,10 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
 				TMP_DROP_IN_NEW = G_IM/F_IM - (C_IM*E_IM)/(F_IM*A_IM) + ( -D_IM/F_IM + (B_IM*E_IM)/(F_IM*A_IM) )*TMP_DROP_NEW
 				TMP_WALL_NEW = TMP_WALL
 
+				PRINT *, 'Tmp_drop_new = ', TMP_DROP_NEW,' K'
+				PRINT *, 'Tmp_drop_in_new = ', TMP_DROP_IN_NEW, ' K'
+				PRINT *, 'Tmp_gas_new = ', TMP_GAS_NEW,' K'
+
 			END SELECT PART_HEAT_TRANSFER_MODEL_SELECT
 
                   CASE(2) ! Const Temp Wall
