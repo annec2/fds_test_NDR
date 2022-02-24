@@ -2810,6 +2810,7 @@ REAL(EB) :: B_COL(3) !< Particle temperatre terms in LHS of solution
 REAL(EB) :: C_COL(3) !< Wall temperature terms in LHS of solution
 REAL(EB) :: D_VEC(3) !< RHS of solution
 !Martin parameters used in the implicit solution of my TWO_ZONE model
+REAL(EB) :: K_L !< for diagnostic purpose
 REAL(EB) :: BI_CRIT !< Critical Biot number that is used to define the depth of the outer layer
 REAL(EB) :: DELTA_OUT !< Depth of the outer layer
 REAL(EB) :: A_IN !< Heat exchange area between the outer and the inner layer
