@@ -3285,9 +3285,12 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
 				BI_CRIT = 0.10_EB
 				DELTA_OUT = BI_CRIT*SS%K_LIQUID/H_HEAT ! SS% -> Species Type
 				A_IN = PI*(2._EB*R_DROP-2._EB*DELTA_OUT)**2
+				PRINT *, 'Bi_crit = ', BI_CRIT,'-, K_l = ', SS%K_LIQUID, ' ?'
+				PRINT *, 'R_drop = ', R_DROP,'m, Delta_out = ', DELTA_OUT, ' m'
 
 				M_DROP_IN = FTPR*R_DROP**3*(1-DELTA_OUT/R_DROP)**3
 				M_DROP_OUT = M_DROP-M_DROP_IN
+				PRINT *, 'm_out = ', M_DROP_OUT,'kg, m_in= ', M_DROP_IN, ' kg'
 
 				MU_G = (M_GAS*CP)/(DT_SUBSTEP*WGT)
 				C_DROP_IN=C_DROP		!Martin : To be changed
