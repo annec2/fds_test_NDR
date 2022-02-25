@@ -3288,19 +3288,19 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
 				!K_L=0.006597_EB
 				!DELTA_OUT = BI_CRIT*K_L/H_HEAT
 				A_IN = PI*(2._EB*R_DROP-2._EB*DELTA_OUT)**2
-				!PRINT *, 'Bi_crit = ', BI_CRIT,'-, h = ', H_HEAT, ' W/(m K)'
-				!PRINT *, 'K_l = ', K_L,'W/(m K), SS%K_l = ', SS%K_LIQUID, ' W/(m K)'
-				!PRINT *, 'R_drop = ', R_DROP,'m, Delta_out = ', DELTA_OUT, ' m'
+				PRINT *, 'Bi_crit = ', BI_CRIT,'-, h = ', H_HEAT, ' W/(m K)'
+				PRINT *, 'K_l = ', K_L,'W/(m K), SS%K_l = ', SS%K_LIQUID, ' W/(m K)'
+				PRINT *, 'R_drop = ', R_DROP,'m, Delta_out = ', DELTA_OUT, ' m'
 
 				M_DROP_IN = FTPR*R_DROP**3*(1-DELTA_OUT/R_DROP)**3
 				M_DROP_OUT = M_DROP-M_DROP_IN
-				!PRINT *, 'm_out = ', M_DROP_OUT,'kg, m_in= ', M_DROP_IN, ' kg'
+				PRINT *, 'm_out = ', M_DROP_OUT,'kg, m_in= ', M_DROP_IN, ' kg'
 
 				MU_G = (M_GAS*CP)/(DT_SUBSTEP*WGT)
 				C_DROP_IN=C_DROP		!Martin : To be changed
 				MU_IN = (M_DROP_IN*C_DROP_IN)/DT_SUBSTEP
 				MU_OUT = (M_DROP_OUT*C_DROP)/DT_SUBSTEP
-				!PRINT *, 'mu_out = ', MU_OUT,'?, mu_in= ', MU_IN, ' ?, mu_g= ', MU_G, ' ?'
+				PRINT *, 'mu_out = ', MU_OUT,'?, mu_in= ', MU_IN, ' ?, mu_g= ', MU_G, ' ?'
 
 				U_IM = A_DROP*H_MASS*RHO_FILM/(1._EB+0.5_EB*A_DROP*WGT*H_MASS*RHO_FILM*RVC*DT_SUBSTEP/RHO_G)
 				V_IM = 0.5_EB*A_IN/A_DROP*C_DROP
@@ -3308,6 +3308,12 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
 				X_IM = Y_DROP-0.5_EB*DYDT*TMP_DROP-Y_GAS
 				Y_IM = TMP_DROP-TMP_DROP_IN
 				Z_IM = TMP_G-TMP_DROP
+				PRINT *, 'U_IM', U_IM
+				PRINT *, 'V_IM', V_IM
+				PRINT *, 'W_IM', W_IM
+				PRINT *, 'X_IM', X_IM
+				PRINT *, 'Y_IM', Y_IM
+				PRINT *, 'Z_IM', Z_IM
 				
 				A_IM = 1._EB+W_IM/MU_G
 				B_IM = -W_IM/MU_G+U_IM/MU_G*0.5_EB*DYDT*(H1-H2)
@@ -3321,6 +3327,18 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
 				J_IM = -U_IM*V_IM/MU_IN*(X_IM+0.5_EB*DYDT*Y_IM)
 				K_IM = U_IM*V_IM/MU_IN*X_IM+1._EB
 				L_IM = TMP_DROP_IN+U_IM*V_IM/MU_IN*X_IM*Y_IM
+				PRINT *, 'A_IM', A_IM
+				PRINT *, 'B_IM', B_IM
+				PRINT *, 'C_IM', C_IM
+				PRINT *, 'D_IM', D_IM
+				PRINT *, 'E_IM', E_IM
+				PRINT *, 'F_IM', F_IM
+				PRINT *, 'G_IM', G_IM
+				PRINT *, 'H_IM', H_IM
+				PRINT *, 'I_IM', I_IM
+				PRINT *, 'J_IM', J_IM
+				PRINT *, 'K_IM', K_IM
+				PRINT *, 'L_IM', L_IM
 				
 				R_IM = H_IM - (D_IM*I_IM)/F_IM + (B_IM*E_IM*I_IM)/(A_IM*F_IM)
 				S_IM = (G_IM*I_IM)/F_IM - (C_IM*E_IM*I_IM)/(A_IM*F_IM) + J_IM - (D_IM*K_IM)/F_IM + (B_IM*E_IM*K_IM)/(A_IM*F_IM)
@@ -3348,6 +3366,7 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
 				PRINT *, 'Tmp_drop_new = ', TMP_DROP_NEW,' K'
 				PRINT *, 'Tmp_drop_in_new = ', TMP_DROP_IN_NEW, ' K'
 				PRINT *, 'Tmp_gas_new = ', TMP_G_NEW,' K'
+				RETURN
 
 			END SELECT PART_HEAT_TRANSFER_MODEL_SELECT
 
