@@ -3287,7 +3287,17 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
 		             TMP_DROP_NEW = -(A_COL(2)*D_VEC(1)-A_COL(1)*D_VEC(2))/(A_COL(1)*B_COL(2)-B_COL(1)*A_COL(2))
 		             TMP_G_NEW = (D_VEC(1)-B_COL(1)*TMP_DROP_NEW)/A_COL(1)
 		             TMP_WALL_NEW = TMP_WALL
-		PRINT *, 'Tmp_drop = ', TMP_DROP,', Tmp_g= ', TMP_G,', m_drop= ', M_DROP 
+
+				PRINT *, 'ACOL1 =', A_COL(1),' ?'
+				PRINT *, 'BCOL2 =', B_COL(2),' ?'
+				PRINT *, 'ACOL2 =', A_COL(2),' ?'
+				PRINT *, 'BCOL1 =', B_COL(1),' ?'
+				PRINT *, 'DEVC1 =', D_VEC(1),' ?'
+				PRINT *, 'DEVC2 =', D_VEC(2),' ?'
+				PRINT *, 'Tmp_drop_new = ', TMP_DROP_NEW,' K'
+				PRINT *, 'Tmp_gas_new = ', TMP_G_NEW,' K'
+				PRINT *, 'Tmp_wall_new = ', TMP_WALL_NEW,' K'
+		!PRINT *, 'Tmp_drop = ', TMP_DROP,', Tmp_g= ', TMP_G,', m_drop= ', M_DROP 
 
 			!Martin
 			CASE(TWO_ZONE_MODEL)
