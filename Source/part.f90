@@ -3325,9 +3325,12 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
 				R_IM = H_IM - (D_IM*I_IM)/F_IM + (B_IM*E_IM*I_IM)/(A_IM*F_IM)
 				S_IM = (G_IM*I_IM)/F_IM - (C_IM*E_IM*I_IM)/(A_IM*F_IM) + J_IM - (D_IM*K_IM)/F_IM + (B_IM*E_IM*K_IM)/(A_IM*F_IM)
 				T_IM = (G_IM*K_IM)/F_IM - (C_IM*E_IM*K_IM)/(A_IM*F_IM) - L_IM
-				
+				!MARTIN reprendre ici
 				K_L=S_IM**2-4*R_IM*T_IM
 				PRINT *, 'DELTA', K_L
+				PRINT *, 'R_IM', R_IM
+				PRINT *, 'S_IM', S_IM
+				PRINT *, 'T_IM', T_IM
 				TMP_DROP_NEW_PLUS = (-S_IM + SQRT(S_IM**2-4*R_IM*T_IM)) / (2*R_IM)
 				TMP_DROP_NEW_MINUS = (-S_IM - SQRT(S_IM**2-4*R_IM*T_IM)) / (2*R_IM)
 				PRINT *, 'Tmp_drop_new+ = ', TMP_DROP_NEW_PLUS,' K'
