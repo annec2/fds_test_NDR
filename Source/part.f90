@@ -3355,12 +3355,12 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
 				X_IM = Y_DROP-0.5_EB*DYDT*TMP_DROP-Y_GAS
 				Y_IM = TMP_DROP-TMP_DROP_IN
 				Z_IM = TMP_G-TMP_DROP
-				!PRINT *, 'U_IM', U_IM
-				!PRINT *, 'V_IM', V_IM
-				!PRINT *, 'W_IM', W_IM
-				!PRINT *, 'X_IM', X_IM
-				!PRINT *, 'Y_IM', Y_IM
-				!PRINT *, 'Z_IM', Z_IM
+				PRINT *, 'U_IM', U_IM
+				PRINT *, 'V_IM', V_IM
+				PRINT *, 'W_IM', W_IM
+				PRINT *, 'X_IM', X_IM
+				PRINT *, 'Y_IM', Y_IM
+				PRINT *, 'Z_IM', Z_IM
 				
 				A_IM = 1._EB+W_IM/MU_G
 				B_IM = -W_IM/MU_G+U_IM/MU_G*0.5_EB*DYDT*(H1-H2)
@@ -3374,25 +3374,22 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
 				J_IM = -U_IM*V_IM/MU_IN*(X_IM+0.5_EB*DYDT*Y_IM)
 				K_IM = U_IM*V_IM/MU_IN*X_IM+1._EB
 				L_IM = TMP_DROP_IN+U_IM*V_IM/MU_IN*X_IM*Y_IM
-				!PRINT *, 'A_IM', A_IM
-				!PRINT *, 'B_IM', B_IM
-				!PRINT *, 'C_IM', C_IM
-				!PRINT *, 'D_IM', D_IM
-				!PRINT *, 'E_IM', E_IM
-				!PRINT *, 'F_IM', F_IM
-				!PRINT *, 'G_IM', G_IM
-				!PRINT *, 'H_IM', H_IM
-				!PRINT *, 'I_IM', I_IM
-				!PRINT *, 'J_IM', J_IM
-				!PRINT *, 'K_IM', K_IM
-				!PRINT *, 'L_IM', L_IM
+				PRINT *, 'A_IM', A_IM
+				PRINT *, 'B_IM', B_IM
+				PRINT *, 'C_IM', C_IM
+				PRINT *, 'D_IM', D_IM
+				PRINT *, 'E_IM', E_IM
+				PRINT *, 'F_IM', F_IM
+				PRINT *, 'G_IM', G_IM
+				PRINT *, 'H_IM', H_IM
+				PRINT *, 'I_IM', I_IM
+				PRINT *, 'J_IM', J_IM
+				PRINT *, 'K_IM', K_IM
+				PRINT *, 'L_IM', L_IM
 				
 				R_IM = H_IM - (D_IM*I_IM)/F_IM + (B_IM*E_IM*I_IM)/(A_IM*F_IM)
 				S_IM = (G_IM*I_IM)/F_IM - (C_IM*E_IM*I_IM)/(A_IM*F_IM) + J_IM - (D_IM*K_IM)/F_IM + (B_IM*E_IM*K_IM)/(A_IM*F_IM)
 				T_IM = (G_IM*K_IM)/F_IM - (C_IM*E_IM*K_IM)/(A_IM*F_IM) - L_IM
-				!MARTIN reprendre ici
-				K_L=S_IM**2-4*R_IM*T_IM
-				!PRINT *, 'DELTA', K_L
 				PRINT *, 'R_IM', R_IM
 				PRINT *, 'S_IM', S_IM
 				PRINT *, 'T_IM', T_IM
