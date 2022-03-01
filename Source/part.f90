@@ -3226,6 +3226,7 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
                            H_MASS   = MAX(2._EB,SHERWOOD)*D_FILM/LENGTH*LOG(1._EB+LP_ONE_D%B_NUMBER)/ &
                                      (LP_ONE_D%B_NUMBER*F_B(LP_ONE_D%B_NUMBER))
                      END SELECT
+		PRINT *,'H_MASS RANZ =', H_MASS
                  ! ENDIF
                ELSE SOLID_OR_GAS_PHASE_2
 
