@@ -3212,9 +3212,10 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
 
                   ENDIF
                   H_HEAT   = MAX(2._EB,NUSSELT)*K_FILM/LENGTH
-                  IF (Y_DROP<=Y_GAS) THEN
-                     H_MASS = 0._EB
-                  ELSE
+		!Martin
+                !  IF (Y_DROP<=Y_GAS) THEN
+                !     H_MASS = 0._EB
+                !  ELSE
                      !M# expressions taken from Sazhin, Prog in Energy and Comb Sci 32 (2006) 162-214
                      SELECT CASE(EVAP_MODEL)
                         CASE(-1) ! Ranz Marshall
@@ -3225,7 +3226,7 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
                            H_MASS   = MAX(2._EB,SHERWOOD)*D_FILM/LENGTH*LOG(1._EB+LP_ONE_D%B_NUMBER)/ &
                                      (LP_ONE_D%B_NUMBER*F_B(LP_ONE_D%B_NUMBER))
                      END SELECT
-                  ENDIF
+                 ! ENDIF
                ELSE SOLID_OR_GAS_PHASE_2
 
                   CALL GET_FILM_PROPERTIES(1,SPHERE_FILM_FAC,Y_DROP_A,Y_GAS_A,Z_INDEX_A,TMP_DROP,TMP_G,ZZ_GET,&
