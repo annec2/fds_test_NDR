@@ -241,6 +241,8 @@ TYPE BOUNDARY_ONE_D_TYPE
    REAL(EB) :: T_IGN=0._EB           !< Ignition time (s)
    REAL(EB) :: TMP_F                 !< Surface temperature (K)
    REAL(EB) :: TMP_F_OLD             !< Holding value for surface temperature (K)
+   REAL(EB) :: TMP_INNER             !< Inner layer temperature for Two-Zone Model (K) Martin
+   REAL(EB) :: TMP_INNER_OLD         !< Holding value Inner layer temperature for Two-Zone Model (K) Martin
    REAL(EB) :: TMP_B                 !< Back surface temperature (K)
    REAL(EB) :: U_NORMAL=0._EB        !< Normal component of velocity (m/s) at surface, start of time step
    REAL(EB) :: U_NORMAL_S=0._EB      !< Estimated normal component of velocity (m/s) at next time step
