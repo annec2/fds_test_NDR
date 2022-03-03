@@ -1468,6 +1468,15 @@ ELSE
    LP_ONE_D%TMP(0:LP_SF%N_CELLS_INI+1) = TMPA
 ENDIF
 
+!Martin
+IF (LPC%TMP_INNER_INITIAL>0._EB) THEN
+   LP_ONE_D%TMP_INNER(0:LP_SF%N_CELLS_INI+1) = LPC%TMP_INNER_INITIAL
+ELSEIF (LPC%TMP_INITIAL>0._EB) THEN
+   LP_ONE_D%TMP_INNER(0:LP_SF%N_CELLS_INI+1) = LPC%TMP_INITIAL
+ELSE
+   LP_ONE_D%TMP(0:LP_SF%N_CELLS_INI+1) = TMPA
+ENDIF
+
 LP_ONE_D%TMP_F = LP_ONE_D%TMP(1)
 
 ! Check if fire spreads radially over this surface type, and if so, set T_IGN appropriately
@@ -3032,16 +3041,17 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
             FTPR     = FOTHPI * LP_ONE_D%MATL_COMP(1)%RHO(1)
             M_DROP   = FTPR*R_DROP**3
             TMP_DROP = LP_ONE_D%TMP(1)
-	!Martin
-		IF (T <= DT) THEN
-	    TMP_DROP_IN = TMP_DROP
+	    TMP_DROP_IN = LP_ONE_D%TMP_INNER(1) !Martin
 		PRINT *, 'Time = ', T,' s, DT = ', DT, ' s'
-		PRINT *, 'Init, Tmp_drop = ', TMP_DROP,' K, Tmp_drop_in = ', TMP_DROP_IN, ' K'
-		ELSE
-	    TMP_DROP_IN = LP_ONE_D%TMP_INNER(1)
-		ENDIF
-		!PRINT *, 'Time = ', T,' s, DT = ', DT, ' s, DT_sum = ', DT_SUM, ' s'
-		PRINT *, 'Other, Tmp_drop = ', TMP_DROP,' K, Tmp_drop_in = ', TMP_DROP_IN, ' K'
+		PRINT *, 'Tmp_drop = ', TMP_DROP,' K, Tmp_drop_in = ', TMP_DROP_IN, ' K'
+!	!Martin
+!		IF (T <= DT) THEN
+!	    TMP_DROP_IN = TMP_DROP
+!		PRINT *, 'Time = ', T,' s, DT = ', DT, ' s'
+!		PRINT *, 'Init, Tmp_drop = ', TMP_DROP,' K, Tmp_drop_in = ', TMP_DROP_IN, ' K'
+!		ENDIF
+!		!PRINT *, 'Time = ', T,' s, DT = ', DT, ' s, DT_sum = ', DT_SUM, ' s'
+!		PRINT *, 'Other, Tmp_drop = ', TMP_DROP,' K, Tmp_drop_in = ', TMP_DROP_IN, ' K'
             T_BOIL_EFF = SS%TMP_V
             CALL GET_EQUIL_DATA(MW_DROP,TMP_DROP,PBAR(KK,PRESSURE_ZONE(II,JJ,KK)),H_V,H_V_A,T_BOIL_EFF,X_DROP,SS%H_V)
             I_BOIL   = INT(T_BOIL_EFF)
