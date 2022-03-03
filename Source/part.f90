@@ -3036,9 +3036,12 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
 		IF (T <= DT) THEN
 	    TMP_DROP_IN = TMP_DROP
 		PRINT *, 'Time = ', T,' s, DT = ', DT, ' s'
+		PRINT *, 'Init, Tmp_drop = ', TMP_DROP,' K, Tmp_drop_in = ', TMP_DROP_IN, ' K'
+		ELSE
+	    TMP_DROP_IN = LP_ONE_D%TMP_INNER(1)
 		ENDIF
 		!PRINT *, 'Time = ', T,' s, DT = ', DT, ' s, DT_sum = ', DT_SUM, ' s'
-		!PRINT *, 'Tmp_drop = ', TMP_DROP,' K, Tmp_drop_in = ', TMP_DROP_IN, ' K'
+		PRINT *, 'Other, Tmp_drop = ', TMP_DROP,' K, Tmp_drop_in = ', TMP_DROP_IN, ' K'
             T_BOIL_EFF = SS%TMP_V
             CALL GET_EQUIL_DATA(MW_DROP,TMP_DROP,PBAR(KK,PRESSURE_ZONE(II,JJ,KK)),H_V,H_V_A,T_BOIL_EFF,X_DROP,SS%H_V)
             I_BOIL   = INT(T_BOIL_EFF)
@@ -3226,7 +3229,7 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
                            H_MASS   = MAX(2._EB,SHERWOOD)*D_FILM/LENGTH*LOG(1._EB+LP_ONE_D%B_NUMBER)/ &
                                      (LP_ONE_D%B_NUMBER*F_B(LP_ONE_D%B_NUMBER))
                      END SELECT
-		PRINT *,'H_MASS RANZ =', H_MASS
+		!PRINT *,'H_MASS RANZ =', H_MASS
                  ! ENDIF
                ELSE SOLID_OR_GAS_PHASE_2
 
@@ -3253,22 +3256,22 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
                H2 = H_SENS_Z(ITMP,Z_INDEX)+(TMP_G-REAL(ITMP,EB))*(H_SENS_Z(ITMP+1,Z_INDEX)-H_SENS_Z(ITMP,Z_INDEX))
 	!Martin
 	H_MASS   = MAX(2._EB,SHERWOOD)*D_FILM/LENGTH
-	PRINT *, 'H_MASS_NEW =', H_MASS
+	!PRINT *, 'H_MASS_NEW =', H_MASS
 
 !Martin : les print
                AGHRHO = A_DROP*H_MASS*RHO_FILM/(1._EB+0.5_EB*RVC*DT_SUBSTEP*A_DROP*WGT*H_MASS*RHO_FILM*(1._EB-Y_GAS)/RHO_G)
-	PRINT *, 'Time = ', T,' s, DT = ', DT, ' s'
-	PRINT *, 'A_DROP =', A_DROP
-	PRINT *, 'H_MASS =', H_MASS
-	PRINT *, 'RHO_FILM =', RHO_FILM
-	PRINT *, 'RHO_G =', RHO_G
-	PRINT *, '1 =', 1._EB
-	PRINT *, '0.5 =', 0.5_EB
-	PRINT *, 'RVC =', RVC
-	PRINT *, 'DT_SUBSTEP', DT_SUBSTEP
-	PRINT *, 'WGT =', WGT
-	PRINT *, 'Y_GAS =', Y_GAS
-	PRINT *, 'AGHRHO =', AGHRHO
+	!PRINT *, 'Time = ', T,' s, DT = ', DT, ' s'
+	!PRINT *, 'A_DROP =', A_DROP
+	!PRINT *, 'H_MASS =', H_MASS
+	!PRINT *, 'RHO_FILM =', RHO_FILM
+	!PRINT *, 'RHO_G =', RHO_G
+	!PRINT *, '1 =', 1._EB
+	!PRINT *, '0.5 =', 0.5_EB
+	!PRINT *, 'RVC =', RVC
+	!PRINT *, 'DT_SUBSTEP', DT_SUBSTEP
+	!PRINT *, 'WGT =', WGT
+	!PRINT *, 'Y_GAS =', Y_GAS
+	!PRINT *, 'AGHRHO =', AGHRHO
                DTOG = DT_SUBSTEP*WGT/(M_GAS*CP)
                DTGOG = 0.5_EB*DTOG*A_DROP*H_HEAT
 	!PRINT *, 'DTOG', DTOG
@@ -3305,15 +3308,15 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
 		             TMP_G_NEW = (D_VEC(1)-B_COL(1)*TMP_DROP_NEW)/A_COL(1)
 		             TMP_WALL_NEW = TMP_WALL
 
-				PRINT *, 'ACOL1 =', A_COL(1),' ?'
-				PRINT *, 'BCOL2 =', B_COL(2),' ?'
-				PRINT *, 'ACOL2 =', A_COL(2),' ?'
-				PRINT *, 'BCOL1 =', B_COL(1),' ?'
-				PRINT *, 'DEVC1 =', D_VEC(1),' ?'
-				PRINT *, 'DEVC2 =', D_VEC(2),' ?'
-				PRINT *, 'Tmp_drop_new = ', TMP_DROP_NEW,' K'
-				PRINT *, 'Tmp_gas_new = ', TMP_G_NEW,' K'
-				PRINT *, 'Tmp_wall_new = ', TMP_WALL_NEW,' K'
+				!PRINT *, 'ACOL1 =', A_COL(1),' ?'
+				!PRINT *, 'BCOL2 =', B_COL(2),' ?'
+				!PRINT *, 'ACOL2 =', A_COL(2),' ?'
+				!PRINT *, 'BCOL1 =', B_COL(1),' ?'
+				!PRINT *, 'DEVC1 =', D_VEC(1),' ?'
+				!PRINT *, 'DEVC2 =', D_VEC(2),' ?'
+				!PRINT *, 'Tmp_drop_new = ', TMP_DROP_NEW,' K'
+				!PRINT *, 'Tmp_gas_new = ', TMP_G_NEW,' K'
+				!PRINT *, 'Tmp_wall_new = ', TMP_WALL_NEW,' K'
 		!PRINT *, 'Tmp_drop = ', TMP_DROP,', Tmp_g= ', TMP_G,', m_drop= ', M_DROP 
 
 			!Martin
@@ -3339,17 +3342,15 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
 				
 				U_IM = A_DROP*H_MASS*RHO_FILM/(1._EB+0.5_EB*A_DROP*WGT*H_MASS*RHO_FILM*RVC*DT_SUBSTEP/RHO_G)
 	PRINT *, 'Time = ', T,' s, DT = ', DT, ' s'
-	PRINT *, 'A_DROP =', A_DROP
-	PRINT *, 'H_MASS =', H_MASS
-	PRINT *, 'RHO_FILM =', RHO_FILM
-	PRINT *, 'RHO_G =', RHO_G
-	PRINT *, '1 =', 1._EB
-	PRINT *, '0.5 =', 0.5_EB
-	PRINT *, 'RVC =', RVC
-	PRINT *, 'DT_SUBSTEP', DT_SUBSTEP
-	PRINT *, 'WGT =', WGT
-	PRINT *, 'Y_GAS =', Y_GAS
-	PRINT *, 'AGHRHO =', AGHRHO
+	!PRINT *, 'A_DROP =', A_DROP
+	!PRINT *, 'H_MASS =', H_MASS
+	!PRINT *, 'RHO_FILM =', RHO_FILM
+	!PRINT *, 'RHO_G =', RHO_G
+	!PRINT *, 'RVC =', RVC
+	!PRINT *, 'DT_SUBSTEP', DT_SUBSTEP
+	!PRINT *, 'WGT =', WGT
+	!PRINT *, 'Y_GAS =', Y_GAS
+	!PRINT *, 'AGHRHO =', AGHRHO
 				V_IM = 0.5_EB*A_IN/A_DROP*C_DROP
 				W_IM = 0.5_EB*A_DROP*H_HEAT
 				X_IM = Y_DROP-0.5_EB*DYDT*TMP_DROP-Y_GAS
@@ -3642,10 +3643,12 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
 
                ! Update PARTICLE quantities
 
+!?Martin??
                LP_ONE_D%X(1)   = (M_DROP/FTPR)**ONTH
                LP_ONE_D%LAYER_THICKNESS(1) = LP_ONE_D%X(1)
                LP_ONE_D%TMP(1) = TMP_DROP_NEW
                LP_ONE_D%TMP_F  = TMP_DROP_NEW
+		LP_ONE_D%TMP_INNER(1) = TMP_DROP_IN_NEW
                LP%MASS = M_DROP
 
                ! Sum convection and radiation for surfaces
