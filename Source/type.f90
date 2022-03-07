@@ -209,7 +209,7 @@ TYPE BOUNDARY_ONE_D_TYPE
    REAL(EB), ALLOCATABLE, DIMENSION(:) :: M_DOT_S_PP          !< (1:SF\%N_MATL) Mass production rate of solid species
    REAL(EB), ALLOCATABLE, DIMENSION(:) :: M_DOT_G_PP_ADJUST   !< (1:N_TRACKED_SPECIES) Adjusted mass production rate per unit area
    REAL(EB), ALLOCATABLE, DIMENSION(:) :: X                   !< (0:NWP) Depth (m), \f$ x_{{\rm s},i} \f$
-   REAL(EB), ALLOCATABLE, DIMENSION(:,2) :: TMP                 !< Temperature in center of each solid cell, \f$ T_{{\rm s},i} \f$ !Martin add a 2
+   REAL(EB), ALLOCATABLE, DIMENSION(:,2) :: TMP                 !< Temperature in center of each solid cell, \f$ T_{{\rm s},i} \f$ !Martin add a 2. ?ow: (:,1) is for TMP_DROP and (:,2) for TMP_DROP_IN
    !REAL(EB), ALLOCATABLE, DIMENSION(:) :: TMP_INNER           !< Inner layer temperature for Two-Zone Model (K) Martin
    REAL(EB), ALLOCATABLE, DIMENSION(:) :: LAYER_THICKNESS     !< (1:SF\%N_LAYERS) Thickness of layer (m)
    REAL(EB), ALLOCATABLE, DIMENSION(:) :: ZZ_F                !< (1:N_TRACKED_SPECIES) Species mixture mass fraction at surface
