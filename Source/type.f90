@@ -199,7 +199,7 @@ END TYPE BOUNDARY_COORD_TYPE
 !> \brief Variables associated with a WALL, PARTICLE, or CFACE boundary cell
 !> \details If you change the number of scalar variables in BOUNDARY_ONE_D_TYPE, adjust the numbers below
 
-INTEGER, PARAMETER :: N_ONE_D_SCALAR_REALS=27 ! Martin was 26
+INTEGER, PARAMETER :: N_ONE_D_SCALAR_REALS=28 ! Martin was 26
 INTEGER, PARAMETER :: N_ONE_D_SCALAR_INTEGERS=4
 INTEGER, PARAMETER :: N_ONE_D_SCALAR_LOGICALS=1
 
@@ -210,7 +210,7 @@ TYPE BOUNDARY_ONE_D_TYPE
    REAL(EB), ALLOCATABLE, DIMENSION(:) :: M_DOT_G_PP_ADJUST   !< (1:N_TRACKED_SPECIES) Adjusted mass production rate per unit area
    REAL(EB), ALLOCATABLE, DIMENSION(:) :: X                   !< (0:NWP) Depth (m), \f$ x_{{\rm s},i} \f$
    REAL(EB), ALLOCATABLE, DIMENSION(:) :: TMP                 !< Temperature in center of each solid cell, \f$ T_{{\rm s},i} \f$
-   REAL(EB), ALLOCATABLE, DIMENSION(:) :: TMP_INNER           !< Inner layer temperature for Two-Zone Model (K) Martin
+   !REAL(EB), ALLOCATABLE, DIMENSION(:) :: TMP_INNER           !< Inner layer temperature for Two-Zone Model (K) Martin
    REAL(EB), ALLOCATABLE, DIMENSION(:) :: LAYER_THICKNESS     !< (1:SF\%N_LAYERS) Thickness of layer (m)
    REAL(EB), ALLOCATABLE, DIMENSION(:) :: ZZ_F                !< (1:N_TRACKED_SPECIES) Species mixture mass fraction at surface
    REAL(EB), ALLOCATABLE, DIMENSION(:) :: RHO_D_F             !< (1:N_TRACKED_SPECIES) Diffusion at surface, \f$ \rho D_\alpha \f$
@@ -243,8 +243,8 @@ TYPE BOUNDARY_ONE_D_TYPE
    REAL(EB) :: T_IGN=0._EB           !< Ignition time (s)
    REAL(EB) :: TMP_F                 !< Surface temperature (K)
    REAL(EB) :: TMP_F_OLD             !< Holding value for surface temperature (K)
-   !REAL(EB) :: TMP_INNER             !< Inner layer temperature for Two-Zone Model (K) Martin
-   !REAL(EB) :: TMP_INNER_OLD         !< Holding value Inner layer temperature for Two-Zone Model (K) Martin
+   REAL(EB) :: TMP_INNER             !< Inner layer temperature for Two-Zone Model (K) Martin
+   REAL(EB) :: TMP_INNER_OLD         !< Holding value Inner layer temperature for Two-Zone Model (K) Martin
    REAL(EB) :: TMP_B                 !< Back surface temperature (K)
    REAL(EB) :: U_NORMAL=0._EB        !< Normal component of velocity (m/s) at surface, start of time step
    REAL(EB) :: U_NORMAL_S=0._EB      !< Estimated normal component of velocity (m/s) at next time step
