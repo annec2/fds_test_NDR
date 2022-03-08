@@ -2828,6 +2828,7 @@ REAL(EB) :: M_DROP_OUT !< Mass of the outer layer
 REAL(EB) :: MU_G !< Collection of terms used in the implicit solution of the TZ
 REAL(EB) :: C_DROP_IN !< In case of we want to do a distinction between the inner and the outer cp of liquid water
 REAL(EB) :: MU_IN !< Collection of terms used in the implicit solution
+REAL(EB) :: R_IN !< The radius of the inner layer. Is just used in the code with the print for vizualisation purpose
 REAL(EB) :: MU_OUT !< Collection of terms used in the implicit solution of the TZ
 REAL(EB) :: U_IM !< Collection of terms used in the implicit solution of the TZ
 REAL(EB) :: V_IM !< Collection of terms used in the implicit solution of the TZ
@@ -3042,8 +3043,8 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
             M_DROP   = FTPR*R_DROP**3
             TMP_DROP = LP_ONE_D%TMP(1)
 	    TMP_DROP_IN = LP_ONE_D%TMP_INNER(1) !Martin
-		PRINT *, 'Time = ', T,' s, DT = ', DT, ' s'
-		!PRINT *, 'Tmp_drop = ', TMP_DROP,' K, Tmp_drop_in = ', TMP_DROP_IN, ' K'
+!		PRINT *, 'Time = ', T,' s, DT = ', DT, ' s'
+!		PRINT *, 'Tmp_drop = ', TMP_DROP,' K, Tmp_drop_in = ', TMP_DROP_IN, ' K'
 !	!Martin
 !		IF (T <= DT) THEN
 !	    TMP_DROP_IN = TMP_DROP
@@ -3418,9 +3419,10 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
 				TMP_DROP_IN_NEW = G_IM/F_IM - (C_IM*E_IM)/(F_IM*A_IM) + ( -D_IM/F_IM + (B_IM*E_IM)/(F_IM*A_IM) )*TMP_DROP_NEW
 				TMP_WALL_NEW = TMP_WALL
 
-				PRINT *, 'Tmp_drop_new    = ', TMP_DROP_NEW,' K'
-				PRINT *, 'Tmp_drop_in_new = ', TMP_DROP_IN_NEW, ' K'
-				PRINT *, 'R_drop = ', R_DROP,'m, Delta_out = ', DELTA_OUT, ' m'
+				PRINT *, 'Time = ', T,' s, DT = ', DT, ' s'
+				PRINT *, 'Tmp_out    = ', TMP_DROP_NEW,' K,	Tmp_in = ', TMP_DROP_IN_NEW, ' K'
+				R_IN = R_DROP - DELTA_OUT
+				PRINT *, 'Delta_out  = ', DELTA_OUT, ' m,  	R_in   = ', R_IN, ' m'
 				!PRINT *, 'Tmp_gas_new = ', TMP_G_NEW,' K'
 				!RETURN
 
