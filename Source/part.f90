@@ -3657,8 +3657,10 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
                LP_ONE_D%X(1)   = (M_DROP/FTPR)**ONTH
                LP_ONE_D%LAYER_THICKNESS(1) = LP_ONE_D%X(1)
                LP_ONE_D%TMP(1) = TMP_DROP_NEW
+		PRINT *, 'Tmp_drop_new that is stored in LP_ONED%TMP(1) = ', LP_ONE_D%TMP(1),' K'
                LP_ONE_D%TMP_F  = TMP_DROP_NEW
 	       LP_ONE_D%TMP_INNER(1) = TMP_DROP_IN_NEW
+		PRINT *, 'Tmp_drop_in_new that is stored in LP_ONED%TMP_INNER(1) = ', LP_ONE_D%TMP_INNER(1),' K'
                LP%MASS = M_DROP
 
                ! Sum convection and radiation for surfaces
