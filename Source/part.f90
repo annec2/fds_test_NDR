@@ -3043,7 +3043,7 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
             TMP_DROP = LP_ONE_D%TMP(1)
 	    TMP_DROP_IN = LP_ONE_D%TMP_INNER(1) !Martin
 		PRINT *, 'Time = ', T,' s, DT = ', DT, ' s'
-		PRINT *, 'Tmp_drop = ', TMP_DROP,' K, Tmp_drop_in = ', TMP_DROP_IN, ' K'
+		!PRINT *, 'Tmp_drop = ', TMP_DROP,' K, Tmp_drop_in = ', TMP_DROP_IN, ' K'
 !	!Martin
 !		IF (T <= DT) THEN
 !	    TMP_DROP_IN = TMP_DROP
@@ -3351,7 +3351,7 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
 				!PRINT *, 'mu_out = ', MU_OUT,'?, mu_in= ', MU_IN, ' ?, mu_g= ', MU_G, ' ?'
 				
 				U_IM = A_DROP*H_MASS*RHO_FILM/(1._EB+0.5_EB*A_DROP*WGT*H_MASS*RHO_FILM*RVC*DT_SUBSTEP/RHO_G)
-	PRINT *, 'Time = ', T,' s, DT = ', DT, ' s'
+	!PRINT *, 'Time = ', T,' s, DT = ', DT, ' s'
 	!PRINT *, 'A_DROP =', A_DROP
 	!PRINT *, 'H_MASS =', H_MASS
 	!PRINT *, 'RHO_FILM =', RHO_FILM
@@ -3406,8 +3406,8 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
 				!PRINT *, 'T_IM', T_IM
 				TMP_DROP_NEW_PLUS = (-S_IM + SQRT(S_IM**2-4*R_IM*T_IM)) / (2*R_IM)
 				TMP_DROP_NEW_MINUS = (-S_IM - SQRT(S_IM**2-4*R_IM*T_IM)) / (2*R_IM)
-				PRINT *, 'Tmp_drop_new+ = ', TMP_DROP_NEW_PLUS,' K'
-				PRINT *, 'Tmp_drop_new- = ', TMP_DROP_NEW_MINUS,' K'
+				!PRINT *, 'Tmp_drop_new+ = ', TMP_DROP_NEW_PLUS,' K'
+				!PRINT *, 'Tmp_drop_new- = ', TMP_DROP_NEW_MINUS,' K'
 				
 				IF (ABS(TMP_DROP_NEW_PLUS-TMP_DROP) <= ABS(TMP_DROP_NEW_MINUS-TMP_DROP)) THEN
 		             		TMP_DROP_NEW = TMP_DROP_NEW_PLUS
@@ -3420,7 +3420,8 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
 
 				PRINT *, 'Tmp_drop_new    = ', TMP_DROP_NEW,' K'
 				PRINT *, 'Tmp_drop_in_new = ', TMP_DROP_IN_NEW, ' K'
-				PRINT *, 'Tmp_gas_new = ', TMP_G_NEW,' K'
+				PRINT *, 'R_drop = ', R_DROP,'m, Delta_out = ', DELTA_OUT, ' m'
+				!PRINT *, 'Tmp_gas_new = ', TMP_G_NEW,' K'
 				!RETURN
 
 			END SELECT PART_HEAT_TRANSFER_MODEL_SELECT
@@ -3657,10 +3658,10 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
                LP_ONE_D%X(1)   = (M_DROP/FTPR)**ONTH
                LP_ONE_D%LAYER_THICKNESS(1) = LP_ONE_D%X(1)
                LP_ONE_D%TMP(1) = TMP_DROP_NEW
-		PRINT *, 'Tmp_drop_new that is stored in LP_ONED%TMP(1) = ', LP_ONE_D%TMP(1),' K'
+		!PRINT *, 'Tmp_drop_new that is stored in LP_ONED%TMP(1) = ', LP_ONE_D%TMP(1),' K'
                LP_ONE_D%TMP_F  = TMP_DROP_NEW
 	       LP_ONE_D%TMP_INNER(1) = TMP_DROP_IN_NEW
-		PRINT *, 'Tmp_drop_in_new that is stored in LP_ONED%TMP_INNER(1) = ', LP_ONE_D%TMP_INNER(1),' K'
+		!PRINT *, 'Tmp_drop_in_new that is stored in LP_ONED%TMP_INNER(1) = ', LP_ONE_D%TMP_INNER(1),' K'
                LP%MASS = M_DROP
 
                ! Sum convection and radiation for surfaces
