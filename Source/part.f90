@@ -3665,6 +3665,11 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
 	       LP_ONE_D%TMP_INNER(1) = TMP_DROP_IN_NEW
 		!PRINT *, 'Tmp_drop_in_new that is stored in LP_ONED%TMP_INNER(1) = ', LP_ONE_D%TMP_INNER(1),' K'
                LP%MASS = M_DROP
+!Martin qunatities that are post-processed
+		LP_ONE_D%TMP_OUTER = TMP_DROP_NEW
+		LP_ONE_D%TMP_INNER = TMP_DROP_IN_NEW
+		LP_ONE_D%DELTA_OUT = DELTA_OUT
+		LP_ONE_D%R_IN = R_IN
 
                ! Sum convection and radiation for surfaces
                IF (LP%WALL_INDEX>0 .OR. LP%CFACE_INDEX>0) THEN
