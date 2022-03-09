@@ -260,8 +260,8 @@ TYPE BOUNDARY_ONE_D_TYPE
    REAL(EB) :: T_MATL_PART=0._EB     !< Time interval for current value in PART_MASS and PART_ENTHALPY arrays (s)
    REAL(EB) :: B_NUMBER=0._EB        !< B number for droplet or wall
 !Martin
-   REAL(EB) :: TMP_OUTER             !< output quantity for analysis purpose cfr data.f90 and dump.f90 (K)
-   REAL(EB) :: TMP_INNER             !< output quantity for analysis purpose cfr data.f90 and dump.f90 (K)
+   REAL(EB) :: TMP_OUT               !< output quantity for analysis purpose cfr data.f90 and dump.f90 (K)
+   REAL(EB) :: TMP_IN                !< output quantity for analysis purpose cfr data.f90 and dump.f90 (K)
    REAL(EB) :: DELTA_OUT             !< output quantity for analysis purpose cfr data.f90 and dump.f90 (m)
    REAL(EB) :: R_IN		     !< output quantity for analysis purpose cfr data.f90 and dump.f90 (m)
 
