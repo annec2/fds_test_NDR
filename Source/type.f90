@@ -199,7 +199,7 @@ END TYPE BOUNDARY_COORD_TYPE
 !> \brief Variables associated with a WALL, PARTICLE, or CFACE boundary cell
 !> \details If you change the number of scalar variables in BOUNDARY_ONE_D_TYPE, adjust the numbers below
 
-INTEGER, PARAMETER :: N_ONE_D_SCALAR_REALS=26
+INTEGER, PARAMETER :: N_ONE_D_SCALAR_REALS=30 !Martin : was 26
 INTEGER, PARAMETER :: N_ONE_D_SCALAR_INTEGERS=4
 INTEGER, PARAMETER :: N_ONE_D_SCALAR_LOGICALS=1
 
@@ -259,6 +259,11 @@ TYPE BOUNDARY_ONE_D_TYPE
    REAL(EB) :: Q_SCALE=0._EB         !< Scaled integrated heat release for a surface with CONE_HEAT_FLUX
    REAL(EB) :: T_MATL_PART=0._EB     !< Time interval for current value in PART_MASS and PART_ENTHALPY arrays (s)
    REAL(EB) :: B_NUMBER=0._EB        !< B number for droplet or wall
+!Martin
+   REAL(EB) :: TMP_OUTER             !< output quantity for analysis purpose cfr data.f90 and dump.f90 (K)
+   REAL(EB) :: TMP_INNER             !< output quantity for analysis purpose cfr data.f90 and dump.f90 (K)
+   REAL(EB) :: DELTA_OUT             !< output quantity for analysis purpose cfr data.f90 and dump.f90 (m)
+   REAL(EB) :: R_IN		     !< output quantity for analysis purpose cfr data.f90 and dump.f90 (m)
 
    LOGICAL :: BURNAWAY=.FALSE.       !< Indicater if cell can burn away when fuel is exhausted
 
