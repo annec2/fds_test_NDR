@@ -3227,9 +3227,10 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
                   ENDIF
                   H_HEAT   = MAX(2._EB,NUSSELT)*K_FILM/LENGTH
 		!Martin
-                !  IF (Y_DROP<=Y_GAS) THEN
+                  IF (Y_DROP<=Y_GAS) THEN
+		     H_MASS = 0.000001_EB
                 !     H_MASS = 0._EB
-                !  ELSE
+                  ELSE
                      !M# expressions taken from Sazhin, Prog in Energy and Comb Sci 32 (2006) 162-214
                      SELECT CASE(EVAP_MODEL)
                         CASE(-1) ! Ranz Marshall
@@ -3241,7 +3242,8 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
                                      (LP_ONE_D%B_NUMBER*F_B(LP_ONE_D%B_NUMBER))
                      END SELECT
 		!PRINT *,'H_MASS RANZ =', H_MASS
-                 ! ENDIF
+                  ENDIF
+PRINT *,'H_MASS =', H_MASS
                ELSE SOLID_OR_GAS_PHASE_2
 
                   CALL GET_FILM_PROPERTIES(1,SPHERE_FILM_FAC,Y_DROP_A,Y_GAS_A,Z_INDEX_A,TMP_DROP,TMP_G,ZZ_GET,&
@@ -3266,8 +3268,8 @@ SPECIES_LOOP: DO Z_INDEX = 1,N_TRACKED_SPECIES
                ITMP = INT(TMP_G)
                H2 = H_SENS_Z(ITMP,Z_INDEX)+(TMP_G-REAL(ITMP,EB))*(H_SENS_Z(ITMP+1,Z_INDEX)-H_SENS_Z(ITMP,Z_INDEX))
 	!Martin
-	H_MASS   = MAX(2._EB,SHERWOOD)*D_FILM/LENGTH
-	!PRINT *, 'H_MASS_NEW =', H_MASS
+	!H_MASS   = MAX(2._EB,SHERWOOD)*D_FILM/LENGTH
+	PRINT *, 'H_MASS_NEW =', H_MASS
 
 !Martin : les print
                AGHRHO = A_DROP*H_MASS*RHO_FILM/(1._EB+0.5_EB*RVC*DT_SUBSTEP*A_DROP*WGT*H_MASS*RHO_FILM*(1._EB-Y_GAS)/RHO_G)
