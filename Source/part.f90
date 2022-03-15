@@ -3256,6 +3256,8 @@ PRINT *,'H_MASS =', H_MASS
                   RE_L = RHO_FILM*VEL*LENGTH/MU_FILM
                   CALL DROPLET_H_MASS_H_HEAT_GAS(H_MASS,H_HEAT,D_FILM,K_FILM,CP_FILM,RHO_FILM,LENGTH,Y_DROP,Y_GAS,&
                                                  LP_ONE_D%B_NUMBER,NU_FAC_GAS,SH_FAC_GAS,RE_L,TMP_FILM,ZZ_GET,Z_INDEX)
+!Martin
+		IF(H_MASS<=0._EB) H_MASS=0.000001_EB
                   H_WALL   = 0._EB
                   TMP_WALL = TMPA
                   ARRAY_CASE = 1
