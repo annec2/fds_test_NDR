@@ -3478,7 +3478,8 @@ PRINT *,'H_MASS =', H_MASS
                IF (Q_TOT >= M_DROP*H_V) M_VAP = M_DROP
 
                ! Adjust drop temperature for variable liquid CP
-
+!Martin
+PRINT *, 'Tmp_drop_new before EVAP_ALL ', TMP_DROP_NEW,' K'
                EVAP_ALL: IF (M_VAP < M_DROP) THEN
                   TMP_DROP_NEW = TMP_DROP + (Q_TOT - M_VAP * H_V)/(C_DROP * (M_DROP - M_VAP))
                   ITMP = NINT(TMP_DROP)
@@ -3511,6 +3512,7 @@ PRINT *,'H_MASS =', H_MASS
                   Q_CON_WALL = Q_CON_WALL*Q_FRAC
                   TMP_DROP_NEW = T_BOIL_EFF
                ENDIF EVAP_ALL
+PRINT *, 'Tmp_drop_new after EVAP_ALL ', TMP_DROP_NEW,' K'
 
                IF (BC%IOR/=0 .AND. (LP%WALL_INDEX>0 .OR. LP%CFACE_INDEX>0)) TMP_WALL_NEW=TMP_WALL-Q_CON_WALL/MCBAR
                M_DROP = M_DROP - M_VAP
