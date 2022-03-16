@@ -3257,7 +3257,8 @@ PRINT *,'H_MASS =', H_MASS
                   CALL DROPLET_H_MASS_H_HEAT_GAS(H_MASS,H_HEAT,D_FILM,K_FILM,CP_FILM,RHO_FILM,LENGTH,Y_DROP,Y_GAS,&
                                                  LP_ONE_D%B_NUMBER,NU_FAC_GAS,SH_FAC_GAS,RE_L,TMP_FILM,ZZ_GET,Z_INDEX)
 !Martin
-		IF(H_MASS<=0._EB) H_MASS=0.000001_EB
+		IF(H_MASS<=0._EB) H_MASS=0.000001_EB 	!Because for the implicit solution of the TZ model, H_MASS should be different than 0 
+							!otherwhise you divide by 0 and get NaN or a complex number
                   H_WALL   = 0._EB
                   TMP_WALL = TMPA
                   ARRAY_CASE = 1
@@ -3481,13 +3482,16 @@ PRINT *,'H_MASS =', H_MASS
 !Martin
 PRINT *, 'Tmp_drop_new before EVAP_ALL ', TMP_DROP_NEW,' K'
                EVAP_ALL: IF (M_VAP < M_DROP) THEN
-                  TMP_DROP_NEW = TMP_DROP + (Q_TOT - M_VAP * H_V)/(C_DROP * (M_DROP - M_VAP))
-                  ITMP = NINT(TMP_DROP)
-                  ITMP2 = MIN(I_BOIL,MAX(I_MELT,NINT(TMP_DROP_NEW)))
-                  IF (ITMP/=ITMP2) THEN
-                     C_DROP2 = SUM(SS%C_P_L(MIN(ITMP,ITMP2):MAX(ITMP,ITMP2)))/REAL(ABS(ITMP2-ITMP)+1,EB)
-                     TMP_DROP_NEW = TMP_DROP + (Q_TOT - M_VAP * H_V)/(C_DROP2 * (M_DROP - M_VAP))
-                  ENDIF
+		!Martin
+		TMP_DROP_NEW = TMP_DROP_NEW
+PRINT *, 'Tmp_drop_new during EVAP_ALL ', TMP_DROP_NEW,' K'
+                  !TMP_DROP_NEW = TMP_DROP + (Q_TOT - M_VAP * H_V)/(C_DROP * (M_DROP - M_VAP))
+                  !ITMP = NINT(TMP_DROP)
+                  !ITMP2 = MIN(I_BOIL,MAX(I_MELT,NINT(TMP_DROP_NEW)))
+                  !IF (ITMP/=ITMP2) THEN
+                  !   C_DROP2 = SUM(SS%C_P_L(MIN(ITMP,ITMP2):MAX(ITMP,ITMP2)))/REAL(ABS(ITMP2-ITMP)+1,EB)
+                  !   TMP_DROP_NEW = TMP_DROP + (Q_TOT - M_VAP * H_V)/(C_DROP2 * (M_DROP - M_VAP))
+                  !ENDIF
 
                   IF (TMP_DROP_NEW<TMP_MELT) THEN
                      ! If the PARTICLE temperature drops below its freezing point, just reset it
