@@ -3272,7 +3272,7 @@ PRINT *,'H_MASS =', H_MASS
                H2 = H_SENS_Z(ITMP,Z_INDEX)+(TMP_G-REAL(ITMP,EB))*(H_SENS_Z(ITMP+1,Z_INDEX)-H_SENS_Z(ITMP,Z_INDEX))
 	!Martin
 	!H_MASS   = MAX(2._EB,SHERWOOD)*D_FILM/LENGTH
-	PRINT *, 'H_MASS_NEW =', H_MASS
+	!PRINT *, 'H_MASS_NEW =', H_MASS
 
 !Martin : les print
                AGHRHO = A_DROP*H_MASS*RHO_FILM/(1._EB+0.5_EB*RVC*DT_SUBSTEP*A_DROP*WGT*H_MASS*RHO_FILM*(1._EB-Y_GAS)/RHO_G)
@@ -3424,10 +3424,10 @@ PRINT *,'H_MASS =', H_MASS
 				TMP_DROP_IN_NEW = G_IM/F_IM - (C_IM*E_IM)/(F_IM*A_IM) + ( -D_IM/F_IM + (B_IM*E_IM)/(F_IM*A_IM) )*TMP_DROP_NEW
 				TMP_WALL_NEW = TMP_WALL
 
-				PRINT *, 'Time = ', T,' s, DT = ', DT, ' s'
-				PRINT *, 'Tmp_out    = ', TMP_DROP_NEW,' K,	Tmp_in = ', TMP_DROP_IN_NEW, ' K'
+				!PRINT *, 'Time = ', T,' s, DT = ', DT, ' s'
+				!PRINT *, 'Tmp_out    = ', TMP_DROP_NEW,' K,	Tmp_in = ', TMP_DROP_IN_NEW, ' K'
 				R_IN = R_DROP - DELTA_OUT
-				PRINT *, 'Delta_out  = ', DELTA_OUT, ' m,  	R_in   = ', R_IN, ' m'
+				!PRINT *, 'Delta_out  = ', DELTA_OUT, ' m,  	R_in   = ', R_IN, ' m'
 				!PRINT *, 'Tmp_gas_new = ', TMP_G_NEW,' K'
 				!RETURN
 
@@ -3480,11 +3480,11 @@ PRINT *,'H_MASS =', H_MASS
 
                ! Adjust drop temperature for variable liquid CP
 !Martin
-PRINT *, 'Tmp_drop_new before EVAP_ALL ', TMP_DROP_NEW,' K'
+!PRINT *, 'Tmp_drop_new before EVAP_ALL ', TMP_DROP_NEW,' K'
                EVAP_ALL: IF (M_VAP < M_DROP) THEN
 		!Martin
 		TMP_DROP_NEW = TMP_DROP_NEW
-PRINT *, 'Tmp_drop_new during EVAP_ALL ', TMP_DROP_NEW,' K'
+!PRINT *, 'Tmp_drop_new during EVAP_ALL ', TMP_DROP_NEW,' K'
                   !TMP_DROP_NEW = TMP_DROP + (Q_TOT - M_VAP * H_V)/(C_DROP * (M_DROP - M_VAP))
                   !ITMP = NINT(TMP_DROP)
                   !ITMP2 = MIN(I_BOIL,MAX(I_MELT,NINT(TMP_DROP_NEW)))
@@ -3516,7 +3516,7 @@ PRINT *, 'Tmp_drop_new during EVAP_ALL ', TMP_DROP_NEW,' K'
                   Q_CON_WALL = Q_CON_WALL*Q_FRAC
                   TMP_DROP_NEW = T_BOIL_EFF
                ENDIF EVAP_ALL
-PRINT *, 'Tmp_drop_new after EVAP_ALL ', TMP_DROP_NEW,' K'
+!PRINT *, 'Tmp_drop_new after EVAP_ALL ', TMP_DROP_NEW,' K'
 
                IF (BC%IOR/=0 .AND. (LP%WALL_INDEX>0 .OR. LP%CFACE_INDEX>0)) TMP_WALL_NEW=TMP_WALL-Q_CON_WALL/MCBAR
                M_DROP = M_DROP - M_VAP
