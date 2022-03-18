@@ -3340,7 +3340,20 @@ PRINT *,'H_MASS =', H_MASS
 				BI_CRIT = 0.10_EB
 				DELTA_OUT = BI_CRIT*SS%K_LIQUID/H_HEAT ! SS% -> Species Type
 
-				IF(DELTA_OUT>R_DROP .OR. ((T-LP%T_INSERT) > 10/DT .AND. (ABS(TMP_DROP-TMP_DROP_IN)/TMP_DROP)<0.001_EB)) THEN
+				IF(DELTA_OUT>R_DROP .OR. ((T-LP%T_INSERT) > 10/DT .AND. (ABS(TMP_DROP-TMP_DROP_IN)/TMP_DROP)<0.001_EB)) THEN !Choice between Iso and TZ
+				PRINT *, 'ISOTHERMAL'
+		             A_COL(1) = 1._EB+DTGOG
+		             B_COL(1) = -(DTGOG+DADYDTHVHL)
+		             A_COL(2) = -DTGOP
+		             B_COL(2) = 1._EB+DTGOP+DADYDTHV
+		             D_VEC(1) = (1._EB-DTGOG)*TMP_G+(DTGOG-DADYDTHVHL)*TMP_DROP+DAHVHLDY
+		             D_VEC(2) = DTGOP*TMP_G+(1-DTGOP+DADYDTHV)*TMP_DROP-DADYHV+DTOP*Q_DOT_RAD
+		             TMP_DROP_NEW = -(A_COL(2)*D_VEC(1)-A_COL(1)*D_VEC(2))/(A_COL(1)*B_COL(2)-B_COL(1)*A_COL(2))
+		             TMP_G_NEW = (D_VEC(1)-B_COL(1)*TMP_DROP_NEW)/A_COL(1)
+		             TMP_WALL_NEW = TMP_WALL
+
+				TMP_DROP_IN_NEW=TMP_DROP_NEW
+				ELSE !Choice between Iso and TZ
 				PRINT *, 'TWO_ZONE'				
 				A_IN = PI*(2._EB*R_DROP-2._EB*DELTA_OUT)**2
 				!PRINT *, 'Bi_crit = ', BI_CRIT,'-, h = ', H_HEAT, ' W/(m K)'
@@ -3431,22 +3444,7 @@ PRINT *,'H_MASS =', H_MASS
 				!PRINT *, 'Delta_out  = ', DELTA_OUT, ' m,  	R_in   = ', R_IN, ' m'
 				!PRINT *, 'Tmp_gas_new = ', TMP_G_NEW,' K'
 				!RETURN
-
-				ELSE !iso
-				PRINT *, 'ISOTHERMAL'
-		             A_COL(1) = 1._EB+DTGOG
-		             B_COL(1) = -(DTGOG+DADYDTHVHL)
-		             A_COL(2) = -DTGOP
-		             B_COL(2) = 1._EB+DTGOP+DADYDTHV
-		             D_VEC(1) = (1._EB-DTGOG)*TMP_G+(DTGOG-DADYDTHVHL)*TMP_DROP+DAHVHLDY
-		             D_VEC(2) = DTGOP*TMP_G+(1-DTGOP+DADYDTHV)*TMP_DROP-DADYHV+DTOP*Q_DOT_RAD
-		             TMP_DROP_NEW = -(A_COL(2)*D_VEC(1)-A_COL(1)*D_VEC(2))/(A_COL(1)*B_COL(2)-B_COL(1)*A_COL(2))
-		             TMP_G_NEW = (D_VEC(1)-B_COL(1)*TMP_DROP_NEW)/A_COL(1)
-		             TMP_WALL_NEW = TMP_WALL
-
-				TMP_DROP_IN_NEW=TMP_DROP_NEW
-				ENDIF
-
+				ENDIF !choice between iso and TZ
 			END SELECT PART_HEAT_TRANSFER_MODEL_SELECT
 
                   CASE(2) ! Const Temp Wall
