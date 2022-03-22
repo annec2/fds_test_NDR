@@ -3342,6 +3342,8 @@ PRINT *,'H_MASS =', H_MASS
 
 				IF(DELTA_OUT>R_DROP .OR. ((T-LP%T_INSERT) > 10/DT .AND. (ABS(TMP_DROP-TMP_DROP_IN)/TMP_DROP)<0.001_EB)) THEN !Choice between Iso and TZ
 				PRINT *, 'ISOTHERMAL'
+				LPC%PART_HEAT_TRANSFER_MODEL='ISOTHERMAL'
+				!PRINT *, 'Time = ', T
 		             A_COL(1) = 1._EB+DTGOG
 		             B_COL(1) = -(DTGOG+DADYDTHVHL)
 		             A_COL(2) = -DTGOP
