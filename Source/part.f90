@@ -3695,6 +3695,7 @@ PRINT *,'H_MASS =', H_MASS
 		LP_ONE_D%DELTA_OUT = DELTA_OUT
 		LP_ONE_D%R_IN = R_IN
 		LP_ONE_D%H_V = H_V ! Martin postprocess L_V
+		LP_ONE_D%M_DOT = M_VAP/DT ! Martin postprocess M_DOT
 
                ! Sum convection and radiation for surfaces
                IF (LP%WALL_INDEX>0 .OR. LP%CFACE_INDEX>0) THEN
