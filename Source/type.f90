@@ -199,7 +199,7 @@ END TYPE BOUNDARY_COORD_TYPE
 !> \brief Variables associated with a WALL, PARTICLE, or CFACE boundary cell
 !> \details If you change the number of scalar variables in BOUNDARY_ONE_D_TYPE, adjust the numbers below
 
-INTEGER, PARAMETER :: N_ONE_D_SCALAR_REALS=30 !Martin : was 26
+INTEGER, PARAMETER :: N_ONE_D_SCALAR_REALS=31 !Martin : was 26
 INTEGER, PARAMETER :: N_ONE_D_SCALAR_INTEGERS=4
 INTEGER, PARAMETER :: N_ONE_D_SCALAR_LOGICALS=1
 
@@ -264,6 +264,7 @@ TYPE BOUNDARY_ONE_D_TYPE
    REAL(EB) :: TMP_IN                !< output quantity for analysis purpose cfr data.f90 and dump.f90 (K)
    REAL(EB) :: DELTA_OUT             !< output quantity for analysis purpose cfr data.f90 and dump.f90 (m)
    REAL(EB) :: R_IN		     !< output quantity for analysis purpose cfr data.f90 and dump.f90 (m)
+   REAL(EB) :: H_V		     !< output quantity for analysis purpose cfr data.f90 and dump.f90 (m)
 
    LOGICAL :: BURNAWAY=.FALSE.       !< Indicater if cell can burn away when fuel is exhausted
 
