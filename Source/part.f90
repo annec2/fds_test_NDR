@@ -3340,10 +3340,10 @@ PRINT *,'H_MASS =', H_MASS
 				BI_CRIT = 0.10_EB
 				DELTA_OUT = BI_CRIT*SS%K_LIQUID/H_HEAT ! SS% -> Species Type
 
-				IF(DELTA_OUT>R_DROP .OR. ((T-LP%T_INSERT) > 10/DT .AND. (ABS(TMP_DROP-TMP_DROP_IN)/TMP_DROP)<0.001_EB)) THEN !Choice between Iso and TZ
+				IF((1.02_EB*DELTA_OUT)>R_DROP .OR. ((T-LP%T_INSERT) > 10/DT .AND. (ABS(TMP_DROP-TMP_DROP_IN)/TMP_DROP)<0.01_EB)) THEN !Choice between Iso and TZ
 				PRINT *, 'ISOTHERMAL'
 				LPC%PART_HEAT_TRANSFER_MODEL=ISOTHERMAL_MODEL
-				!PRINT *, 'Time = ', T
+				PRINT *, 'Time = ', T
 		             A_COL(1) = 1._EB+DTGOG
 		             B_COL(1) = -(DTGOG+DADYDTHVHL)
 		             A_COL(2) = -DTGOP
