@@ -45,9 +45,9 @@ TYPE LAGRANGIAN_PARTICLE_CLASS_TYPE
    REAL(EB) :: DRAG_COEFFICIENT(3)        !< Drag coefficient in 3 coordinate directions
    REAL(EB) :: A_COEFF_DRAG_EXP_USER      !< Martin A coefficient used in exponential fct defined by user
    REAL(EB) :: B_COEFF_DRAG_EXP_USER      !< Martin B coefficient used in exponential fct defined by user
-   REAL(EB) :: A_COEFF_DRAG_HOMEMADE      !< Martin A coefficient used in homemade exponential fct defined by user
-   REAL(EB) :: B_COEFF_DRAG_HOMEMADE      !< Martin B coefficient used in homemade exponential fct defined by user
-   REAL(EB) :: N_COEFF_DRAG_HOMEMADE      !< Martin N coefficient used in homemade exponential fct defined by user
+   REAL(EB) :: A_COEFF_DRAG_NDR           !< Martin A coefficient used in NDR fct and defined by user
+   REAL(EB) :: B_COEFF_DRAG_NDR           !< Martin B coefficient used in NDR fct and defined by user
+   REAL(EB) :: N_COEFF_DRAG_NDR           !< Martin N coefficient used in NDR fct and defined by user
    REAL(EB) :: SURFACE_DIAMETER           !< Effective liquid droplet diameter (m) on a solid surface
    REAL(EB) :: SURFACE_TENSION            !< Surface tension (N/m) of liquid droplets
    REAL(EB) :: BREAKUP_RATIO              !< Ratio of child Sauter mean to parent size in Bag breakup regime
